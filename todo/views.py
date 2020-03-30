@@ -2,12 +2,18 @@ from django.shortcuts import redirect,render
 from django.contrib import messages
 from .forms import SignUpForm
 from django.contrib.auth import login,logout,authenticate
+from features.forms import featureForm
+from django.contrib.auth.models import User
+from features.models import TaskFeatures
+from django.contrib.auth.decorators import login_required
 
 
+# home page
 def home(request):
     return render(request, 'index.html')
 
 
+# signup page
 def signup(request):
     if request.method == 'GET':
         context = {
@@ -24,6 +30,7 @@ def signup(request):
             return render(request, 'signup.html', {'form':form})
 
 
+# login page
 def signin(request):
     if request.method == 'GET':
         return render(request, 'signin.html')
@@ -40,8 +47,33 @@ def signin(request):
             return redirect('signin')
 
 
+# user dashboard
+@login_required(login_url='signin')
 def dashboard(request):
-    return render(request,'dashboard.html')
+    if request.method == 'GET':
+        a = User.objects.get(id=request.user.id)
+        details = TaskFeatures.objects.filter(user_id=a)
+        context = {
+            'form': featureForm(),
+            'details': details
+        }
+        return render(request, 'dashboard.html', context)
+    else:
+        form = featureForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user_id = request.user.id
+            data.save()
+            return redirect('dashboard')
+        else:
+            return render(request, 'dashboard.html', {'form': form})
+
+
+# code to delete the task
+def taskdelete(request, x):
+    s = TaskFeatures.objects.filter(id=x)
+    s.delete()
+    return redirect('dashboard')
 
 
 # for signout

@@ -3,8 +3,9 @@ from django import forms
 from django.contrib.auth.models import User
 
 
+# User creation form
 class SignUpForm(UserCreationForm):
-    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'username'}))
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'username'}))
 
     email = forms.EmailField(required=True, widget=forms.EmailInput(
         attrs={'class': 'form-control', 'placeholder': 'Email'}))

@@ -68,6 +68,7 @@
 								{% if user.is_authenticated %}
 								<li><a href="{% url 'signout' %}"><i class="fa fa-user-plus"></i>Logout</a></li>
 								{% else %}
+								<li><a href="{% url 'home' %}"><i class="fa fa-user-plus"></i> Home</a></li>
 								<li><a href="{% url 'signup' %}"><i class="fa fa-user-plus"></i> Sign-up</a></li>
 								<li><a href="{% url 'signin' %}"><i class="fa fa-user-plus"></i> Login</a></li>
 								{% endif %}
