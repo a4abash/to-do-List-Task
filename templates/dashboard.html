@@ -15,11 +15,11 @@
 				<div class="col-md-6">
 					<div class="box">
 						<h3>To-Do List</h3>
-							<form action="#" method="POST" role="form">
-								{{form}}
-								{% csrf_token %}
-								<button type="submit" class="btn btn-primary btn-inline">Add</button>&nbsp; &nbsp; &nbsp;
-							</form>
+						<form action="#" method="POST" role="form">
+							{{form}}
+							{% csrf_token %}
+							<button type="submit" class="btn btn-primary btn-inline">Add</button>&nbsp; &nbsp; &nbsp;
+						</form>
 					</div>
 				</div>
 
@@ -31,7 +31,6 @@
 						<li>{{d.title}} must be completed by {{d.date_to_complete}}  <a href="{% url 'taskdelete' d.id %}"><i class="fa fa-trash"></i> </a><br></li>
 						{% endfor %}
 						</b></ol>
-
 					</div>
 				</div>
 
